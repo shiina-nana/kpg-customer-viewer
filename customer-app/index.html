@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171714">
+  <title>KPG CUSTOMER CLUB アプリデモ</title>
+  <meta name="description" content="KPG CUSTOMER CLUB お客様向けアプリの操作デモ">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23171714'/%3E%3Cpath d='M17 16h7v14l13-14h9L32 31l15 17h-9L24 32v16h-7z' fill='%23b3975d'/%3E%3C/svg%3E">
+  <style>
+    :root{--black:#171714;--ink:#282620;--gold:#b3975d;--gold2:#d5c08b;--cream:#f5f1e9;--paper:#fffdf9;--line:#dfd8cc;--muted:#777269;--green:#3f7158;--red:#9d4037;--shadow:0 24px 70px #0003}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;color:var(--ink)}button,input{font:inherit}button{cursor:pointer}
+    body{min-height:100vh;background:radial-gradient(circle at 20% 10%,#b3975d30,transparent 30%),linear-gradient(135deg,#171714,#353128);display:grid;place-items:center;padding:28px}
+    .stage{width:min(1120px,100%);display:grid;grid-template-columns:1fr 390px;align-items:center;gap:70px}.intro{color:#fff}.intro small{color:var(--gold2);letter-spacing:.2em}.intro h1{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-weight:500;font-size:clamp(36px,5vw,66px);line-height:1.15;margin:20px 0}.intro p{color:#ded8ca;font-size:17px;line-height:1.9;max-width:520px}.demo-label{display:inline-flex;align-items:center;gap:8px;border:1px solid #b3975d88;padding:8px 12px;margin-top:16px;color:#e3d5af;font-size:13px}.demo-label:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+    .phone{height:min(820px,calc(100vh - 56px));min-height:680px;background:var(--paper);border:8px solid #0f0f0d;border-radius:38px;box-shadow:var(--shadow);overflow:hidden;position:relative}.screen{display:none;height:100%;overflow:auto;padding-bottom:84px;background:var(--paper)}.screen.active{display:block}.screen.login.active{display:flex}
+    .login{padding:52px 28px 30px;flex-direction:column;background:linear-gradient(#fffdf9cc,#fffdf9),linear-gradient(145deg,#e8deca,#fff)}.wordmark{font-family:Georgia,serif;letter-spacing:.18em;color:var(--gold);font-size:12px}.login h2{font-family:"Yu Mincho",serif;font-weight:500;font-size:34px;margin:78px 0 8px}.login .lead{color:var(--muted);margin:0 0 36px}.field{margin-bottom:16px}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px}.field input{width:100%;border:1px solid var(--line);background:#fff;padding:14px;border-radius:4px;outline:none}.field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #b3975d20}.primary{width:100%;border:0;background:var(--black);color:#fff;padding:15px;border-radius:3px;font-weight:700;letter-spacing:.05em}.primary:hover{background:#3a342a}.text-btn{border:0;background:none;color:var(--muted);padding:12px}.login-note{margin-top:auto;text-align:center;color:var(--muted);font-size:12px}
+    .app-head{background:var(--black);color:#fff;padding:24px 22px 29px}.app-head .top{display:flex;justify-content:space-between;align-items:center}.app-head small{color:var(--gold2);letter-spacing:.13em}.icon-btn{border:0;background:#ffffff14;color:#fff;border-radius:50%;width:36px;height:36px}.hello{font-family:"Yu Mincho",serif;font-weight:500;font-size:27px;margin:26px 0 5px}.app-head p{margin:0;color:#c9c4b9;font-size:13px}.content{padding:18px}.member-card{background:linear-gradient(135deg,#b3975d,#dfcca0);padding:20px;border-radius:6px;color:#171714;box-shadow:0 12px 30px #59481925}.member-row{display:flex;justify-content:space-between;align-items:start}.rank{font-family:Georgia,serif;font-size:28px}.member-id{font-size:11px;opacity:.7}.points{margin-top:25px}.points strong{font-size:29px}.section-title{font-family:"Yu Mincho",serif;font-size:20px;font-weight:500;margin:24px 0 12px}.next-card,.menu-card,.history-card,.profile-card{border:1px solid var(--line);background:#fff;padding:16px;border-radius:5px}.next-card .date{font-weight:800;color:var(--gold);font-size:13px}.next-card h3{font-family:"Yu Mincho",serif;font-weight:500;margin:7px 0 5px;font-size:20px}.next-card p{margin:0;color:var(--muted);font-size:13px}.row-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.small-btn{border:1px solid var(--line);background:#fff;padding:11px;border-radius:3px;color:var(--ink);font-weight:700}.small-btn.dark{background:var(--black);color:#fff;border-color:var(--black)}
+    .quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}.quick button{border:1px solid var(--line);background:#fff;padding:18px 8px;border-radius:5px}.quick b{display:block;margin-top:7px}.quick span{font-size:23px;color:var(--gold)}.campaign{background:#ebe3d3;padding:20px;border-radius:5px}.campaign small{color:#806b42}.campaign h3{font-family:"Yu Mincho",serif;margin:8px 0;font-weight:500}.campaign p{margin:0;font-size:13px;color:var(--muted)}
+    .page-title{padding:25px 20px 15px;display:flex;align-items:center;gap:12px}.page-title button{border:0;background:#eee9df;width:34px;height:34px;border-radius:50%}.page-title h2{font-family:"Yu Mincho",serif;font-weight:500;margin:0;font-size:25px}.page-sub{color:var(--muted);font-size:13px;margin:-7px 20px 18px}.history-list{display:grid;gap:10px;padding:0 18px}.history-card{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center}.history-icon{width:48px;height:48px;border-radius:50%;background:#eee6d7;display:grid;place-items:center;color:#806b42}.history-card h3{margin:0 0 4px;font-size:15px}.history-card p{margin:0;color:var(--muted);font-size:12px}.history-card .point{color:var(--green);font-size:13px;font-weight:800}.history-card .stay{color:var(--gold)}
+    .booking-tabs{display:flex;margin:0 18px 15px;border-bottom:1px solid var(--line)}.booking-tabs button{flex:1;border:0;background:none;padding:12px 4px;color:var(--muted)}.booking-tabs button.active{color:var(--ink);border-bottom:2px solid var(--gold);font-weight:800}.booking-list{display:grid;gap:12px;padding:0 18px}.booking-card{border:1px solid var(--line);padding:17px;background:#fff}.booking-card small{color:var(--gold);font-weight:800}.booking-card h3{font-family:"Yu Mincho",serif;font-weight:500;margin:8px 0}.booking-card p{font-size:13px;color:var(--muted);line-height:1.6}.booking-card button{margin-top:8px}
+    .profile-wrap{padding:0 18px;display:grid;gap:12px}.profile-card h3{font-family:"Yu Mincho",serif;font-weight:500;margin:0 0 13px}.info-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-top:1px solid #eee8df;font-size:14px}.info-row span:first-child{color:var(--muted)}.link-row{width:100%;border:0;border-top:1px solid #eee8df;background:none;text-align:left;padding:14px 0;display:flex;justify-content:space-between}.switch{width:42px;height:24px;background:#d8d4cc;border-radius:20px;position:relative;flex:none}.switch:after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;box-shadow:0 1px 4px #0003;transition:.2s}.switch.on{background:var(--gold)}.switch.on:after{left:21px}
+    .bottom-nav{position:absolute;bottom:0;left:0;right:0;height:76px;background:#fff;border-top:1px solid var(--line);display:none;grid-template-columns:repeat(4,1fr);z-index:4;padding-bottom:max(4px,env(safe-area-inset-bottom))}.bottom-nav.show{display:grid}.bottom-nav button{border:0;background:none;color:#89857d;font-size:11px;padding:9px 2px}.bottom-nav button span{display:block;font-size:21px;margin-bottom:3px}.bottom-nav button.active{color:var(--gold);font-weight:800}
+    .modal{position:absolute;inset:0;background:#171714aa;display:none;align-items:flex-end;z-index:10}.modal.open{display:flex}.sheet{background:#fff;width:100%;padding:23px 22px 28px;border-radius:18px 18px 0 0}.sheet h3{font-family:"Yu Mincho",serif;font-weight:500;font-size:22px;margin:0 0 18px}.sheet-actions{display:flex;gap:9px;margin-top:18px}.sheet-actions button{flex:1}.toast{position:absolute;left:50%;bottom:92px;transform:translate(-50%,12px);background:var(--black);color:#fff;padding:12px 16px;border-radius:3px;white-space:nowrap;opacity:0;transition:.25s;z-index:20;font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:800px){body{padding:0;background:var(--paper);display:block}.stage{display:block;width:100%}.intro{display:none}.phone{width:100%;height:100dvh;min-height:0;border:0;border-radius:0;box-shadow:none}.screen{padding-bottom:88px}}
+  </style>
+</head>
+<body>
+<div class="stage">
+  <section class="intro"><small>KPG CUSTOMER CLUB</small><h1>旅の記憶を、<br>ひとつの場所に。</h1><p>ご予約やご利用履歴、会員情報をスマートフォンからいつでも確認。お客様とKPGをつなぐ会員アプリの操作イメージです。</p><div class="demo-label">プレゼン用・架空データ</div></section>
+  <div class="phone">
+    <section id="login" class="screen login active">
+      <div class="wordmark">KPG CUSTOMER CLUB</div><h2>おかえりなさい</h2><p class="lead">会員情報を入力してログインしてください</p>
+      <div class="field"><label for="email">メールアドレス</label><input id="email" type="email" value="hanako@example.com"></div>
+      <div class="field"><label for="password">パスワード</label><input id="password" type="password" value="demopass"></div>
+      <button id="loginBtn" class="primary">ログイン</button><button class="text-btn">パスワードをお忘れですか？</button>
+      <p class="login-note">これは操作イメージです。入力内容は保存されません。</p>
+    </section>
+
+    <section id="home" class="screen">
+      <header class="app-head"><div class="top"><small>KPG CUSTOMER CLUB</small><button class="icon-btn" aria-label="お知らせ">♢</button></div><h2 class="hello">山田 花子 様</h2><p>いつもご利用ありがとうございます</p></header>
+      <main class="content">
+        <article class="member-card"><div class="member-row"><div><div class="rank">GOLD</div><div class="member-id">KCC-00018425</div></div><div>MEMBER</div></div><div class="points"><small>保有ポイント</small><br><strong>12,400</strong> pt</div></article>
+        <h2 class="section-title">次回のご予約</h2><article class="next-card"><div class="date">2026.10.14 — 10.16</div><h3>ふふ 箱根</h3><p>スタイリッシュスイート／2名様</p><div class="row-actions"><button class="small-btn" data-toast="予約詳細を表示しました">予約詳細</button><button class="small-btn dark" data-screen="booking">予約一覧</button></div></article>
+        <h2 class="section-title">クイックメニュー</h2><div class="quick"><button data-screen="history"><span>↺</span><b>利用履歴</b></button><button data-screen="profile"><span>✎</span><b>会員情報変更</b></button></div>
+        <h2 class="section-title">おすすめ</h2><article class="campaign"><small>MEMBERS ONLY</small><h3>秋の箱根、特別優待</h3><p>会員様限定プランをご用意しています。</p></article>
+      </main>
+    </section>
+
+    <section id="history" class="screen"><header class="page-title"><button data-screen="home">‹</button><h2>利用履歴</h2></header><p class="page-sub">宿泊・レストランなどのご利用を確認できます</p><div class="history-list">
+      <article class="history-card"><div class="history-icon">宿</div><div><h3>ふふ 日光</h3><p>2026年8月22日・宿泊</p></div><div class="point">+1,800 pt</div></article>
+      <article class="history-card"><div class="history-icon">食</div><div><h3>KPGレストラン</h3><p>2026年6月15日・ランチ</p></div><div class="point">+420 pt</div></article>
+      <article class="history-card"><div class="history-icon">宿</div><div><h3>ふふ 京都</h3><p>2026年4月8日・宿泊</p></div><div class="point">+2,100 pt</div></article>
+      <article class="history-card"><div class="history-icon">宿</div><div><h3>ふふ 熱海</h3><p>2025年12月21日・宿泊</p></div><div class="point">+1,650 pt</div></article>
+    </div></section>
+
+    <section id="booking" class="screen"><header class="page-title"><button data-screen="home">‹</button><h2>ご予約</h2></header><div class="booking-tabs"><button class="active">予約中</button><button>過去の予約</button></div><div class="booking-list">
+      <article class="booking-card"><small>2026.10.14 — 10.16</small><h3>ふふ 箱根</h3><p>スタイリッシュスイート<br>大人2名様／夕朝食付き</p><button class="small-btn" data-toast="予約内容を表示しました">詳細を見る</button></article>
+      <article class="booking-card"><small>COMING SOON</small><h3>新しい旅を予約する</h3><p>将来的に、施設・日付・人数を指定してこのアプリから予約できるようになります。</p><button class="primary" data-toast="予約機能は今後実装予定です">施設を探す</button></article>
+    </div></section>
+
+    <section id="profile" class="screen"><header class="page-title"><button data-screen="home">‹</button><h2>会員情報</h2></header><div class="profile-wrap">
+      <article class="profile-card"><h3>基本情報</h3><div class="info-row"><span>お名前</span><b>山田 花子</b></div><div class="info-row"><span>電話番号</span><b>090-XXXX-XXXX</b></div><div class="info-row"><span>住所</span><b>東京都港区…</b></div><button id="addressBtn" class="link-row"><span>住所を変更する</span><span>›</span></button></article>
+      <article class="profile-card"><h3>メール配信設定</h3><button class="link-row toggle"><span>KCCからのお知らせ</span><span class="switch on"></span></button><button class="link-row toggle"><span>ふふからのお知らせ</span><span class="switch on"></span></button><button class="link-row toggle"><span>ECストアからのお知らせ</span><span class="switch"></span></button></article>
+      <button id="logoutBtn" class="small-btn">ログアウト</button>
+    </div></section>
+
+    <nav id="bottomNav" class="bottom-nav" aria-label="メインメニュー"><button class="active" data-screen="home"><span>⌂</span>ホーム</button><button data-screen="booking"><span>▣</span>予約</button><button data-screen="history"><span>↺</span>利用履歴</button><button data-screen="profile"><span>人</span>会員情報</button></nav>
+    <div id="addressModal" class="modal"><div class="sheet"><h3>住所を変更</h3><div class="field"><label>郵便番号</label><input value="107-0061"></div><div class="field"><label>住所</label><input value="東京都港区北青山1-2-3"></div><div class="sheet-actions"><button id="cancelAddress" class="small-btn">キャンセル</button><button id="saveAddress" class="primary">保存する</button></div></div></div>
+    <div id="toast" class="toast" role="status"></div>
+  </div>
+</div>
+<script>
+  const screens=[...document.querySelectorAll('.screen')],nav=document.getElementById('bottomNav'),toast=document.getElementById('toast');
+  function show(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));nav.classList.toggle('show',id!=='login');document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));document.querySelector('.phone').scrollTop=0}
+  function notify(t){toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)}
+  document.getElementById('loginBtn').onclick=()=>{show('home');notify('ログインしました')};
+  document.querySelectorAll('[data-screen]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.screen)));
+  document.querySelectorAll('[data-toast]').forEach(b=>b.addEventListener('click',()=>notify(b.dataset.toast)));
+  document.querySelectorAll('.toggle').forEach(b=>b.addEventListener('click',()=>b.querySelector('.switch').classList.toggle('on')));
+  const modal=document.getElementById('addressModal');document.getElementById('addressBtn').onclick=()=>modal.classList.add('open');document.getElementById('cancelAddress').onclick=()=>modal.classList.remove('open');document.getElementById('saveAddress').onclick=()=>{modal.classList.remove('open');notify('住所を更新しました')};modal.onclick=e=>{if(e.target===modal)modal.classList.remove('open')};
+  document.getElementById('logoutBtn').onclick=()=>show('login');
+</script>
+</body>
+</html>
