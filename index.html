@@ -61,7 +61,7 @@
 
     <section id="vip" class="view">
       <header class="topbar"><div><div class="eyebrow">VIP来館ビュー</div><h1 class="title">店舗別VIP来館予定一覧</h1><p class="sub">予約情報と顧客区分を組み合わせて来館前に確認</p></div></header>
-      <div class="panel vip-controls"><div class="field"><label for="hotel">店舗</label><select id="hotel"><option>ふふ箱根</option><option>ふふ日光</option><option>ふふ東京</option></select></div><div class="field"><label for="date">日付</label><input id="date" type="date" value="2026-10-14"/></div><button id="refreshBtn" class="primary">表示</button><div class="summary">来館予定12組・VIP3組</div></div>
+      <div class="panel vip-controls"><div class="field"><label for="area">エリア／系列</label><select id="area"><option value="klh">KLH（ふふ系列）</option><option value="hotel">KPG HOTEL</option><option value="restaurant">KPG RESTAURANT</option><option value="all">すべて</option></select></div><div class="field"><label for="hotel">店舗</label><select id="hotel"><option>ふふ箱根</option><option>ふふ日光</option><option>ふふ東京</option><option>ふふ熱海</option><option>ふふ京都</option><option>ふふ奈良</option><option>ふふ軽井沢</option></select></div><div class="field"><label for="date">日付</label><input id="date" type="date" value="2026-10-14"/></div><button id="refreshBtn" class="primary">表示</button><div class="summary" id="vipSummary">来館予定12組・VIP3組</div></div>
       <div class="table-wrap" style="margin-top:18px"><table class="table"><thead><tr><th>到着</th><th>お客様</th><th>VIPランク</th><th>顧客属性</th><th>予約</th><th>事前対応</th><th>状況</th></tr></thead><tbody><tr><td>14:30</td><td><strong>山田 花子 様</strong></td><td><span class="tag">KCC</span></td><td>VIP代表顧客・海ノ波音オーナー</td><td>2泊／SS</td><td>誕生日席・脂質控えめ</td><td class="status ok">確認済</td></tr><tr><td>15:00</td><td><strong>佐藤 一郎 様</strong></td><td><span class="tag">KPCC</span></td><td>Sansan名刺あり</td><td>1泊／PCS</td><td>支配人挨拶</td><td class="status doing">対応中</td></tr><tr><td>16:20</td><td><strong>鈴木 美香 様</strong></td><td><span class="tag">KEOC</span></td><td>―</td><td>2泊／CS</td><td>前回要望を共有</td><td class="status pending">未確認</td></tr></tbody></table></div>
     </section>
   </main>
@@ -80,7 +80,15 @@
   document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tabpane').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById(t.dataset.tab).classList.add('active')}));
   document.getElementById('reserveBtn').addEventListener('click',()=>notify('次回予約：10月14日から2泊・ふふ箱根'));
   document.getElementById('moreBtn').addEventListener('click',()=>notify('過去の履歴を追加表示しました'));
-  document.getElementById('refreshBtn').addEventListener('click',()=>notify(document.getElementById('hotel').value+'の一覧を更新しました'));
+  const area=document.getElementById('area'),hotel=document.getElementById('hotel'),vipSummary=document.getElementById('vipSummary');
+  const hotels={
+    klh:['ふふ箱根','ふふ日光','ふふ東京','ふふ熱海','ふふ京都','ふふ奈良','ふふ軽井沢'],
+    hotel:['i+Land nagasaki','GLAMP ELEMENT','GRAX'],
+    restaurant:['つるとんたん','TRATTORIA CREATTA','天空LOUNGE TOP of TREE'],
+    all:['すべての店舗','ふふ箱根','ふふ日光','ふふ東京','ふふ熱海','ふふ京都','ふふ奈良','ふふ軽井沢','i+Land nagasaki','GLAMP ELEMENT','GRAX','つるとんたん','TRATTORIA CREATTA','天空LOUNGE TOP of TREE']
+  };
+  area.addEventListener('change',()=>{hotel.innerHTML=hotels[area.value].map(name=>'<option>'+name+'</option>').join('');vipSummary.textContent='条件を選択して表示';});
+  document.getElementById('refreshBtn').addEventListener('click',()=>{vipSummary.textContent='来館予定12組・VIP3組';notify(area.options[area.selectedIndex].text+'／'+hotel.value+'の一覧を更新しました')});
   const modal=document.getElementById('modal');document.getElementById('editBtn').addEventListener('click',()=>modal.classList.add('open'));document.getElementById('cancelBtn').addEventListener('click',()=>modal.classList.remove('open'));document.getElementById('saveBtn').addEventListener('click',()=>{modal.classList.remove('open');notify('顧客メモを保存しました')});modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
 </script>
 </body>
